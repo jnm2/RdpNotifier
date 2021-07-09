@@ -24,14 +24,14 @@ namespace RdpNotifier
             this.selectAudioFile = selectAudioFile;
             this.flashWindow = flashWindow;
 
-            address = Settings.Default.Address;
-
             playSound = TryLoadSound(Path.Join(
                 Environment.GetFolderPath(Environment.SpecialFolder.Windows),
                 @"Media\Windows Message Nudge.wav"))
                     && Settings.Default.PlaySound;
 
             timer.Tick += (_, _) => Refresh();
+
+            Address = Settings.Default.Address;
         }
 
         public void Dispose()
