@@ -73,14 +73,15 @@ function Get-DetectedCiVersion([string] $PropsOrCsprojPath, [switch] $Release) {
     $versionInfo.PackageVersion = $versionPrefix
     $versionInfo.FileVersion = $versionPrefix
 
-    if (!$buildNumber) {
-        if ($Release) { throw 'Cannot release without a build number.' }
-    }
-    else {
+    if ($buildNumber -or $Release) {
         $shortCommitHash = (git rev-parse --short=8 head)
 
         if ($Release) {
-            $versionInfo.ProductVersion += "+build.$buildNumber.commit.$shortCommitHash"
+            if ($buildNumber) {
+                $versionInfo.ProductVersion += "+build.$buildNumber.commit.$shortCommitHash"
+            } else {
+                $versionInfo.ProductVersion += "+commit.$shortCommitHash"
+            }
         }
         elseif ($buildMetadata.PullRequestNumber) {
             $versionInfo.ProductVersion += "-$buildNumber.pr.$($buildMetadata.PullRequestNumber)"
