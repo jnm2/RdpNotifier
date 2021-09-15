@@ -136,19 +136,26 @@ namespace RdpNotifier
             {
                 var originalAddress = address;
 
-                var cancellationSource = new CancellationTokenSource();
-                var portTask = ConnectionUtils.IsPortOpenAsync(new DnsEndPoint(host, port ?? 3389), cancellationSource.Token);
-                var gatewayTask = ConnectionUtils.IsRdpGatewayOnlineAsync(new DnsEndPoint(host, port ?? 443), cancellationSource.Token);
-
-                var firstCompletedTaskReturnedTrue = (await Task.WhenAny(portTask, gatewayTask)).GetAwaiter().GetResult();
-                if (firstCompletedTaskReturnedTrue)
+                if (port is not (null or 443))
                 {
-                    cancellationSource.Cancel();
-                    isOnline = true;
+                    isOnline = await ConnectionUtils.IsPortOpenAsync(new DnsEndPoint(host, port.Value), CancellationToken.None);
                 }
                 else
                 {
-                    isOnline = await portTask || await gatewayTask;
+                    var cancellationSource = new CancellationTokenSource();
+                    var portTask = ConnectionUtils.IsPortOpenAsync(new DnsEndPoint(host, port ?? 3389), cancellationSource.Token);
+                    var gatewayTask = ConnectionUtils.IsRdpGatewayOnlineAsync(new DnsEndPoint(host, port ?? 443), cancellationSource.Token);
+
+                    var firstCompletedTaskReturnedTrue = (await Task.WhenAny(portTask, gatewayTask)).GetAwaiter().GetResult();
+                    if (firstCompletedTaskReturnedTrue)
+                    {
+                        cancellationSource.Cancel();
+                        isOnline = true;
+                    }
+                    else
+                    {
+                        isOnline = await portTask || await gatewayTask;
+                    }
                 }
 
                 if (address != originalAddress) return;
