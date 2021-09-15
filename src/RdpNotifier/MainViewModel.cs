@@ -117,7 +117,7 @@ namespace RdpNotifier
                 return;
             }
 
-            if (!TryParseDnsEndPoint(address, defaultPort: 443, out var endPoint))
+            if (TryParseHostAndPort(address) is not var (host, port))
             {
                 Status = "Please enter a valid address.";
                 StatusColor = SystemColors.ControlText;
@@ -134,7 +134,11 @@ namespace RdpNotifier
             try
             {
                 var originalAddress = address;
-                isOnline = await RdpUtils.IsGatewayOnlineAsync(endPoint, CancellationToken.None);
+
+                isOnline =
+                    await ConnectionUtils.IsPortOpenAsync(new DnsEndPoint(host, port ?? 3389), CancellationToken.None)
+                    || await ConnectionUtils.IsRdpGatewayOnlineAsync(new DnsEndPoint(host, port ?? 443), CancellationToken.None);
+
                 if (address != originalAddress) return;
             }
             finally
@@ -155,23 +159,20 @@ namespace RdpNotifier
             addressWasLastSeenOffline = !isOnline;
         }
 
-        private static bool TryParseDnsEndPoint(string value, int defaultPort, [NotNullWhen(true)] out DnsEndPoint? endPoint)
+        private static (string Host, int? Port)? TryParseHostAndPort(string value)
         {
             var portSeparatorIndex = value.IndexOf(':');
             if (portSeparatorIndex == -1)
             {
-                endPoint = new(value.Trim(), defaultPort);
-                return true;
+                return (Host: value.Trim(), Port: null);
             }
 
             if (int.TryParse(value.AsSpan(portSeparatorIndex + 1), NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, CultureInfo.InvariantCulture, out var port))
             {
-                endPoint = new(value.AsSpan(0, portSeparatorIndex).Trim().ToString(), port);
-                return true;
+                return (Host: value.AsSpan(0, portSeparatorIndex).Trim().ToString(), port);
             }
 
-            endPoint = null;
-            return false;
+            return null;
         }
     }
 }
