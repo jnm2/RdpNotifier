@@ -7,6 +7,7 @@ using System.IO;
 using System.Media;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RdpNotifier
 {
@@ -135,9 +136,11 @@ namespace RdpNotifier
             {
                 var originalAddress = address;
 
-                isOnline =
-                    await ConnectionUtils.IsPortOpenAsync(new DnsEndPoint(host, port ?? 3389), CancellationToken.None)
-                    || await ConnectionUtils.IsRdpGatewayOnlineAsync(new DnsEndPoint(host, port ?? 443), CancellationToken.None);
+                var portTask = ConnectionUtils.IsPortOpenAsync(new DnsEndPoint(host, port ?? 3389), CancellationToken.None);
+                var gatewayTask = ConnectionUtils.IsRdpGatewayOnlineAsync(new DnsEndPoint(host, port ?? 443), CancellationToken.None);
+
+                var firstCompletedTaskReturnedTrue = (await Task.WhenAny(portTask, gatewayTask)).GetAwaiter().GetResult();
+                isOnline = firstCompletedTaskReturnedTrue || (await portTask || await gatewayTask);
 
                 if (address != originalAddress) return;
             }
