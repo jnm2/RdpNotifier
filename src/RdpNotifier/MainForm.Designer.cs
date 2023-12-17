@@ -87,7 +87,7 @@
             label2.Location = new System.Drawing.Point(30, 97);
             label2.Margin = new System.Windows.Forms.Padding(0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(422, 41);
+            label2.Size = new System.Drawing.Size(422, 40);
             label2.TabIndex = 3;
             label2.Text = "✔ remote.contoso.com is online";
             label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
