@@ -28,93 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            textBox1 = new System.Windows.Forms.TextBox();
+            bindingSource1 = new System.Windows.Forms.BindingSource(components);
+            label1 = new System.Windows.Forms.Label();
+            checkBox1 = new System.Windows.Forms.CheckBox();
+            label2 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
+            SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource1, "Address", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(30, 40);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(422, 32);
-            this.textBox1.TabIndex = 1;
+            textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSource1, "Address", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            textBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            textBox1.Location = new System.Drawing.Point(30, 40);
+            textBox1.Margin = new System.Windows.Forms.Padding(0);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(422, 32);
+            textBox1.TabIndex = 1;
             // 
             // bindingSource1
             // 
-            this.bindingSource1.DataSource = typeof(RdpNotifier.MainViewModel);
+            bindingSource1.DataSource = typeof(MainViewModel);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label1.Location = new System.Drawing.Point(30, 20);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Address:";
+            label1.AutoSize = true;
+            label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            label1.Location = new System.Drawing.Point(30, 20);
+            label1.Margin = new System.Windows.Forms.Padding(0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(65, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Address:";
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.bindingSource1, "PlaySound", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.checkBox1.Location = new System.Drawing.Point(30, 72);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(306, 25);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Play sound when connectivity is restored";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", bindingSource1, "PlaySound", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            checkBox1.Location = new System.Drawing.Point(30, 72);
+            checkBox1.Margin = new System.Windows.Forms.Padding(0);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new System.Drawing.Size(306, 25);
+            checkBox1.TabIndex = 2;
+            checkBox1.Text = "Play sound when connectivity is restored";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", this.bindingSource1, "StatusColor", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.label2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource1, "Status", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semilight", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(30, 97);
-            this.label2.Margin = new System.Windows.Forms.Padding(0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(422, 41);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "✔ remote.contoso.com is online";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label2.UseMnemonic = false;
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            label2.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", bindingSource1, "StatusColor", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            label2.DataBindings.Add(new System.Windows.Forms.Binding("Text", bindingSource1, "Status", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            label2.Font = new System.Drawing.Font("Segoe UI Semilight", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Location = new System.Drawing.Point(30, 97);
+            label2.Margin = new System.Windows.Forms.Padding(0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(422, 41);
+            label2.TabIndex = 3;
+            label2.Text = "✔ remote.contoso.com is online";
+            label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            label2.UseMnemonic = false;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 158);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "MainForm";
-            this.Padding = new System.Windows.Forms.Padding(30, 20, 30, 20);
-            this.ShowIcon = false;
-            this.Text = "RDP Notifier";
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(482, 158);
+            Controls.Add(textBox1);
+            Controls.Add(checkBox1);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "MainForm";
+            Padding = new System.Windows.Forms.Padding(30, 20, 30, 20);
+            ShowIcon = false;
+            Text = "RDP Notifier";
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
