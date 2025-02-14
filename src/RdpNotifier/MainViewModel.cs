@@ -1,6 +1,5 @@
 using RdpNotifier.Properties;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RdpNotifier
 {
-    public sealed class MainViewModel : ViewModel, IDisposable
+    public sealed class MainViewModel : ObservableObject, IDisposable
     {
         private readonly Func<string?> selectAudioFile;
         private readonly Action flashWindow;
