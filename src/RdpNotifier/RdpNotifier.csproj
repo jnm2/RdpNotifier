@@ -13,6 +13,8 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
     <RollForward>Major</RollForward>
+
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>

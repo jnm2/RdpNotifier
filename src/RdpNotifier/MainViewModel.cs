@@ -40,13 +40,12 @@ namespace RdpNotifier
             soundPlayer?.Dispose();
         }
 
-        private string? address;
         public string? Address
         {
-            get => address;
+            get;
             set
             {
-                if (!Set(ref address, value)) return;
+                if (!Set(ref field, value)) return;
                 Status = null;
                 timer.Stop();
                 isInitialLoad = true;
@@ -100,24 +99,21 @@ namespace RdpNotifier
             }
         }
 
-        private bool isLoading;
-        public bool IsLoading { get => isLoading; private set => Set(ref isLoading, value); }
+        public bool IsLoading { get; private set => Set(ref field, value); }
 
-        private string? status;
-        public string? Status { get => status; private set => Set(ref status, value); }
+        public string? Status { get; private set => Set(ref field, value); }
 
-        private Color statusColor;
-        public Color StatusColor { get => statusColor; private set => Set(ref statusColor, value); }
+        public Color StatusColor { get; private set => Set(ref field, value); }
 
         public async void Refresh()
         {
-            if (string.IsNullOrWhiteSpace(address))
+            if (string.IsNullOrWhiteSpace(Address))
             {
                 Status = null;
                 return;
             }
 
-            if (TryParseHostAndPort(address) is not var (host, port))
+            if (TryParseHostAndPort(Address) is not var (host, port))
             {
                 Status = "Please enter a valid address.";
                 StatusColor = SystemColors.ControlText;
@@ -133,7 +129,7 @@ namespace RdpNotifier
             }
             try
             {
-                var originalAddress = address;
+                var originalAddress = Address;
 
                 if (port is not (null or 443))
                 {
@@ -157,7 +153,7 @@ namespace RdpNotifier
                     }
                 }
 
-                if (address != originalAddress) return;
+                if (Address != originalAddress) return;
             }
             finally
             {
@@ -165,8 +161,8 @@ namespace RdpNotifier
             }
 
             (Status, StatusColor) = isOnline
-                ? (string.Concat("✔ ", address.AsSpan().Trim(), " is online"), Color.FromArgb(0, 160, 0))
-                : (string.Concat("❌ ", address.AsSpan().Trim(), " is offline"), Color.FromArgb(240, 0, 0));
+                ? (string.Concat("✔ ", Address.AsSpan().Trim(), " is online"), Color.FromArgb(0, 160, 0))
+                : (string.Concat("❌ ", Address.AsSpan().Trim(), " is offline"), Color.FromArgb(240, 0, 0));
 
             if (isOnline && addressWasLastSeenOffline)
             {
